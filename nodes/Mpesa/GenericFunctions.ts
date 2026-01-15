@@ -5,7 +5,7 @@ import {
     IDataObject,
     JsonObject,
     NodeApiError,
-    IRequestOptions,
+    IHttpRequestOptions,
     IHttpRequestMethods,
 } from 'n8n-workflow';
 
@@ -39,21 +39,21 @@ export async function getAccessToken(
             ? 'https://sandbox.safaricom.co.ke'
             : 'https://api.safaricom.co.ke';
 
-    const options: IRequestOptions = {
+    const options: IHttpRequestOptions = {
         method: 'GET',
-        uri: `${baseUrl}/oauth/v1/generate`,
+        url: `${baseUrl}/oauth/v1/generate`,
         qs: {
             grant_type: 'client_credentials',
         },
         auth: {
-            user: consumerKey,
-            pass: consumerSecret,
+            username: consumerKey,
+            password: consumerSecret,
         },
-        json: true,
+        returnFullResponse: false,
     };
 
     try {
-        const response = await this.helpers.request(options);
+        const response = await this.helpers.httpRequest(options);
         const expiresIn = parseInt(response.expires_in, 10) || 3599;
 
         // Store in cache
@@ -86,18 +86,18 @@ export async function mpesaApiRequest(
     let accessToken = await getAccessToken.call(this);
 
     const makeRequest = async (token: string) => {
-        const options: IRequestOptions = {
+        const options: IHttpRequestOptions = {
             method,
-            uri: `${baseUrl}${endpoint}`,
+            url: `${baseUrl}${endpoint}`,
             headers: {
                 Authorization: `Bearer ${token}`,
                 'Content-Type': 'application/json',
             },
             body,
             qs,
-            json: true,
+            returnFullResponse: false,
         };
-        return await this.helpers.request(options);
+        return await this.helpers.httpRequest(options);
     };
 
     try {
