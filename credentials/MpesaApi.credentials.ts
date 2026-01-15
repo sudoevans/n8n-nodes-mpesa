@@ -1,6 +1,8 @@
 import {
     ICredentialType,
     INodeProperties,
+    ICredentialTestRequest,
+    IAuthenticateGeneric,
 } from 'n8n-workflow';
 
 export class MpesaApi implements ICredentialType {
@@ -43,4 +45,19 @@ export class MpesaApi implements ICredentialType {
             default: '',
         },
     ];
+
+    test: ICredentialTestRequest = {
+        request: {
+            baseURL: '={{$credentials.environment === "sandbox" ? "https://sandbox.safaricom.co.ke" : "https://api.safaricom.co.ke"}}',
+            url: '/oauth/v1/generate',
+            method: 'GET',
+            qs: {
+                grant_type: 'client_credentials',
+            },
+            auth: {
+                username: '={{$credentials.consumerKey}}',
+                password: '={{$credentials.consumerSecret}}',
+            },
+        },
+    };
 }
