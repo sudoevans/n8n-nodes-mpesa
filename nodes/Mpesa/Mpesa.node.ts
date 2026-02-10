@@ -15,6 +15,7 @@ export class Mpesa implements INodeType {
         version: 1,
         subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
         description: 'Consume M-Pesa Daraja 3.0 APIs',
+        documentationUrl: 'https://developer.safaricom.co.ke/apis',
         defaults: {
             name: 'M-Pesa',
         },
@@ -421,7 +422,7 @@ export class Mpesa implements INodeType {
                         operation: ['registerUrl'],
                     },
                 },
-                description: 'URL to receive payment confirmation callbacks, but',
+                description: 'URL to receive payment confirmation callbacks, must be publicly accessible and https',
             },
             {
                 displayName: 'Validation URL',
@@ -435,7 +436,7 @@ export class Mpesa implements INodeType {
                         operation: ['registerUrl'],
                     },
                 },
-                description: 'URL to receive payment validation requests',
+                description: 'URL to receive payment validation requests, must be publicly accessible and https',
             },
             {
                 displayName: 'Response Type',
