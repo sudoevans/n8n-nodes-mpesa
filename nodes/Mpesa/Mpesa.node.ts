@@ -1217,10 +1217,10 @@ export class Mpesa implements INodeType {
                     }
                 }
 
-                returnData.push({ json: responseData });
+                returnData.push({ json: responseData, pairedItem: { item: i } });
             } catch (error) {
                 if (this.continueOnFail()) {
-                    returnData.push({ json: { error: (error as Error).message } });
+                    returnData.push({ json: { error: (error as Error).message }, pairedItem: { item: i } });
                     continue;
                 }
                 throw error;
