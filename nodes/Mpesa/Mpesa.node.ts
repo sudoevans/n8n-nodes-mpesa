@@ -18,7 +18,9 @@ export class Mpesa implements INodeType {
         defaults: {
             name: 'M-Pesa',
         },
+        // eslint-disable-next-line n8n-nodes-base/node-class-description-inputs-wrong-regular-node
         inputs: ['main'],
+        // eslint-disable-next-line n8n-nodes-base/node-class-description-outputs-wrong
         outputs: ['main'],
         credentials: [
             {
@@ -36,33 +38,41 @@ export class Mpesa implements INodeType {
                     {
                         name: 'STK Push',
                         value: 'stkPush',
+                        description: 'Lipa na M-Pesa Online payment',
                     },
                     {
                         name: 'C2B',
                         value: 'c2b',
+                        description: 'Customer to Business payments',
                     },
                     {
                         name: 'B2C',
                         value: 'b2c',
+                        description: 'Business to Customer disbursements',
                     },
                     {
                         name: 'B2B',
                         value: 'b2b',
+                        description: 'Business to Business payments',
                     },
                     {
                         name: 'Account',
                         value: 'account',
+                        description: 'Account operations like balance and status',
                     },
                     {
                         name: 'Identity',
                         value: 'identity',
+                        description: 'Identity verification services',
                     },
                     {
                         name: 'Pull API',
                         value: 'pull',
+                        description: 'Pull transaction history',
                     },
                 ],
                 default: 'stkPush',
+                description: 'The M-Pesa API resource to use',
             },
             // STK Push Operations
             {
@@ -79,13 +89,13 @@ export class Mpesa implements INodeType {
                     {
                         name: 'Initiate',
                         value: 'initiate',
-                        description: 'Initiate an STK Push payment. [Docs](https://developer.safaricom.co.ke/APIs/MpesaExpressSimulate)',
+                        description: 'Initiate an STK Push payment',
                         action: 'Initiate STK Push',
                     },
                     {
                         name: 'Query Status',
                         value: 'queryStatus',
-                        description: 'Check the status of an STK Push transaction. [Docs](https://developer.safaricom.co.ke/APIs/MpesaExpressQuery)',
+                        description: 'Check the status of an STK Push transaction',
                         action: 'Check STK Push Status',
                     },
                 ],
@@ -106,13 +116,13 @@ export class Mpesa implements INodeType {
                     {
                         name: 'Register URL',
                         value: 'registerUrl',
-                        description: 'Register validation and confirmation URLs. [Docs](https://developer.safaricom.co.ke/APIs/CustomerToBusinessRegisterURL)',
+                        description: 'Register validation and confirmation URLs for C2B payments',
                         action: 'Register C2B URLs',
                     },
                     {
                         name: 'Simulate',
                         value: 'simulate',
-                        description: 'Simulate a C2B transaction. [Docs](https://developer.safaricom.co.ke/APIs/CustomerToBusinessSimulate)',
+                        description: 'Simulate a C2B transaction (sandbox only)',
                         action: 'Simulate C2B Transaction',
                     },
                 ],
@@ -133,7 +143,7 @@ export class Mpesa implements INodeType {
                     {
                         name: 'Payment Request',
                         value: 'paymentRequest',
-                        description: 'Send money to customers (B2C). [Docs](https://developer.safaricom.co.ke/APIs/BusinessToCustomer)',
+                        description: 'Send money from your business to customers',
                         action: 'Send B2C Payment',
                     },
                 ],
@@ -154,7 +164,7 @@ export class Mpesa implements INodeType {
                     {
                         name: 'Payment Request',
                         value: 'paymentRequest',
-                        description: 'Send money to other businesses (B2B). [Docs](https://developer.safaricom.co.ke/APIs/BusinessToBusiness)',
+                        description: 'Send money from your business to another business',
                         action: 'Send B2B Payment',
                     },
                 ],
@@ -175,7 +185,7 @@ export class Mpesa implements INodeType {
                     {
                         name: 'Check ATI',
                         value: 'checkAti',
-                        description: 'Check subscriber status (IMSI). [Docs](https://developer.safaricom.co.ke/APIs/Authorization)',
+                        description: 'Check subscriber status via IMSI lookup',
                         action: 'Check Subscriber Status',
                     },
                 ],
@@ -196,13 +206,13 @@ export class Mpesa implements INodeType {
                     {
                         name: 'Register URL',
                         value: 'registerUrl',
-                        description: 'Register callback URL for pull transactions. [Docs](https://developer.safaricom.co.ke/APIs/PullTransactionsRegisterURL)',
+                        description: 'Register callback URL for pull transactions',
                         action: 'Register Pull URL',
                     },
                     {
                         name: 'Query',
                         value: 'query',
-                        description: 'Query pull transactions. [Docs](https://developer.safaricom.co.ke/APIs/PullTransactionsQuery)',
+                        description: 'Query transaction history for a date range',
                         action: 'Query Pull Transactions',
                     },
                 ],
@@ -223,19 +233,19 @@ export class Mpesa implements INodeType {
                     {
                         name: 'Balance',
                         value: 'balance',
-                        description: 'Check account balance. [Docs](https://developer.safaricom.co.ke/APIs/AccountBalance)',
+                        description: 'Check your M-Pesa account balance',
                         action: 'Check Account Balance',
                     },
                     {
                         name: 'Transaction Status',
                         value: 'transactionStatus',
-                        description: 'Check status of a transaction. [Docs](https://developer.safaricom.co.ke/APIs/TransactionStatus)',
+                        description: 'Check the status of an M-Pesa transaction',
                         action: 'Check Transaction Status',
                     },
                     {
                         name: 'Reversal',
                         value: 'reversal',
-                        description: 'Reverse a transaction. [Docs](https://developer.safaricom.co.ke/APIs/Reversal)',
+                        description: 'Reverse a completed M-Pesa transaction',
                         action: 'Reverse Transaction',
                     },
                 ],
@@ -301,7 +311,32 @@ export class Mpesa implements INodeType {
                 },
                 description: 'The phone number to receive the STK Push prompt (format: 2547xxxxxxxx)',
             },
-
+            {
+                displayName: 'Transaction Type',
+                name: 'transactionType',
+                type: 'options',
+                options: [
+                    {
+                        name: 'Pay Bill',
+                        value: 'CustomerPayBillOnline',
+                        description: 'Payment to a Paybill number',
+                    },
+                    {
+                        name: 'Buy Goods',
+                        value: 'CustomerBuyGoodsOnline',
+                        description: 'Payment to a Till number',
+                    },
+                ],
+                default: 'CustomerPayBillOnline',
+                required: true,
+                displayOptions: {
+                    show: {
+                        resource: ['stkPush'],
+                        operation: ['initiate'],
+                    },
+                },
+                description: 'The type of transaction (PayBill or Till)',
+            },
             {
                 displayName: 'Callback URL',
                 name: 'callbackUrl',
@@ -372,6 +407,7 @@ export class Mpesa implements INodeType {
                         operation: ['registerUrl', 'simulate'],
                     },
                 },
+                description: 'Your M-Pesa Paybill or Till number',
             },
             {
                 displayName: 'Confirmation URL',
@@ -385,6 +421,7 @@ export class Mpesa implements INodeType {
                         operation: ['registerUrl'],
                     },
                 },
+                description: 'URL to receive payment confirmation callbacks, but',
             },
             {
                 displayName: 'Validation URL',
@@ -398,6 +435,7 @@ export class Mpesa implements INodeType {
                         operation: ['registerUrl'],
                     },
                 },
+                description: 'URL to receive payment validation requests',
             },
             {
                 displayName: 'Response Type',
@@ -407,10 +445,12 @@ export class Mpesa implements INodeType {
                     {
                         name: 'Completed',
                         value: 'Completed',
+                        description: 'Complete the transaction automatically',
                     },
                     {
                         name: 'Cancelled',
                         value: 'Cancelled',
+                        description: 'Cancel the transaction if validation fails',
                     },
                 ],
                 default: 'Completed',
@@ -420,6 +460,7 @@ export class Mpesa implements INodeType {
                         operation: ['registerUrl'],
                     },
                 },
+                description: 'Default response when validation URL is unreachable',
             },
             // C2B - Simulate Fields
             {
@@ -436,7 +477,7 @@ export class Mpesa implements INodeType {
                 },
             },
             {
-                displayName: 'Msisdn',
+                displayName: 'Phone Number',
                 name: 'msisdn',
                 type: 'string',
                 default: '',
@@ -447,20 +488,22 @@ export class Mpesa implements INodeType {
                         operation: ['simulate'],
                     },
                 },
-                description: 'Phone number (format: 2547xxxxxxxx)',
+                description: 'Customer phone number (format: 2547xxxxxxxx)',
             },
             {
-                displayName: 'Command ID',
+                displayName: 'Transaction Type',
                 name: 'commandId',
                 type: 'options',
                 options: [
                     {
-                        name: 'CustomerPayBillOnline',
+                        name: 'Pay Bill',
                         value: 'CustomerPayBillOnline',
+                        description: 'Payment to a Paybill number',
                     },
                     {
-                        name: 'CustomerBuyGoodsOnline',
+                        name: 'Buy Goods',
                         value: 'CustomerBuyGoodsOnline',
+                        description: 'Payment to a Till number',
                     },
                 ],
                 default: 'CustomerPayBillOnline',
@@ -470,6 +513,20 @@ export class Mpesa implements INodeType {
                         operation: ['simulate'],
                     },
                 },
+                description: 'The type of C2B transaction to simulate',
+            },
+            {
+                displayName: 'Bill Reference Number',
+                name: 'billRefNumber',
+                type: 'string',
+                default: '',
+                displayOptions: {
+                    show: {
+                        resource: ['c2b'],
+                        operation: ['simulate'],
+                    },
+                },
+                description: 'Account number or reference for the transaction',
             },
             // B2B Fields
             {
@@ -483,6 +540,7 @@ export class Mpesa implements INodeType {
                         resource: ['b2c', 'account', 'b2b'],
                     },
                 },
+                description: 'The username of the API operator as set on the M-Pesa portal',
             },
             {
                 displayName: 'Security Credential',
@@ -501,21 +559,24 @@ export class Mpesa implements INodeType {
                 description: 'Encrypted security credential',
             },
             {
-                displayName: 'Command ID',
+                displayName: 'Payment Type',
                 name: 'commandId',
                 type: 'options',
                 options: [
                     {
                         name: 'Salary Payment',
                         value: 'SalaryPayment',
+                        description: 'Payment of salaries to employees',
                     },
                     {
                         name: 'Business Payment',
                         value: 'BusinessPayment',
+                        description: 'General business payment to customer',
                     },
                     {
                         name: 'Promotion Payment',
                         value: 'PromotionPayment',
+                        description: 'Promotional or reward payment',
                     },
                 ],
                 default: 'BusinessPayment',
@@ -525,31 +586,37 @@ export class Mpesa implements INodeType {
                         operation: ['paymentRequest'],
                     },
                 },
+                description: 'The type of B2C payment to make',
             },
             {
-                displayName: 'Command ID',
+                displayName: 'Payment Type',
                 name: 'commandId',
                 type: 'options',
                 options: [
                     {
                         name: 'Business Pay Bill',
                         value: 'BusinessPayBill',
+                        description: 'Pay to a Paybill number',
                     },
                     {
                         name: 'Business Buy Goods',
                         value: 'BusinessBuyGoods',
+                        description: 'Pay to a Till number',
                     },
                     {
                         name: 'Disburse Funds To Business',
                         value: 'DisburseFundsToBusiness',
+                        description: 'Transfer funds to another business',
                     },
                     {
                         name: 'Business To Business Transfer',
                         value: 'BusinessToBusinessTransfer',
+                        description: 'Direct B2B transfer',
                     },
                     {
-                        name: 'Business Transfer From MM To Utility',
+                        name: 'Merchant To Merchant Transfer',
                         value: 'BusinessTransferFromMMToUtility',
+                        description: 'Transfer from merchant to utility',
                     },
                 ],
                 default: 'BusinessPayBill',
@@ -559,6 +626,7 @@ export class Mpesa implements INodeType {
                         operation: ['paymentRequest'],
                     },
                 },
+                description: 'The type of B2B payment to make',
             },
             {
                 displayName: 'Amount',
@@ -574,7 +642,7 @@ export class Mpesa implements INodeType {
                 },
             },
             {
-                displayName: 'Party A',
+                displayName: 'Sender Shortcode (Party A)',
                 name: 'partyA',
                 type: 'string',
                 default: '',
@@ -584,10 +652,10 @@ export class Mpesa implements INodeType {
                         resource: ['b2c', 'account', 'b2b'],
                     },
                 },
-                description: 'Shortcode',
+                description: 'Your organization shortcode initiating the transaction',
             },
             {
-                displayName: 'Party B',
+                displayName: 'Receiver (Party B)',
                 name: 'partyB',
                 type: 'string',
                 default: '',
@@ -598,7 +666,7 @@ export class Mpesa implements INodeType {
                         operation: ['paymentRequest'],
                     },
                 },
-                description: 'Phone number or Shortcode',
+                description: 'Phone number (B2C) or shortcode (B2B) receiving the payment',
             },
             {
                 displayName: 'Sender Identifier Type',
@@ -617,6 +685,7 @@ export class Mpesa implements INodeType {
                         operation: ['paymentRequest'],
                     },
                 },
+                description: 'Type of organization sending the payment',
             },
             {
                 displayName: 'Receiver Identifier Type',
@@ -635,6 +704,7 @@ export class Mpesa implements INodeType {
                         operation: ['paymentRequest'],
                     },
                 },
+                description: 'Type of organization receiving the payment',
             },
             {
                 displayName: 'Remarks',
@@ -647,6 +717,7 @@ export class Mpesa implements INodeType {
                         resource: ['b2c', 'account', 'b2b'],
                     },
                 },
+                description: 'Comments sent along with the transaction',
             },
             {
                 displayName: 'Queue Timeout URL',
@@ -659,6 +730,7 @@ export class Mpesa implements INodeType {
                         resource: ['b2c', 'account', 'b2b'],
                     },
                 },
+                description: 'URL to receive notification if the request times out',
             },
             {
                 displayName: 'Result URL',
@@ -671,6 +743,7 @@ export class Mpesa implements INodeType {
                         resource: ['b2c', 'account', 'b2b'],
                     },
                 },
+                description: 'URL to receive the transaction result callback',
             },
             {
                 displayName: 'Account Reference',
@@ -684,6 +757,7 @@ export class Mpesa implements INodeType {
                         operation: ['paymentRequest'],
                     },
                 },
+                description: 'Account number or reference for the B2B transaction',
             },
             // Identity Fields
             {
@@ -712,6 +786,7 @@ export class Mpesa implements INodeType {
                         resource: ['pull'],
                     },
                 },
+                description: 'Your M-Pesa shortcode for pull transactions',
             },
             {
                 displayName: 'Request Type',
@@ -725,6 +800,7 @@ export class Mpesa implements INodeType {
                         operation: ['registerUrl'],
                     },
                 },
+                description: 'Type of pull request (default: Pull)',
             },
             {
                 displayName: 'Nominated Number',
@@ -738,6 +814,7 @@ export class Mpesa implements INodeType {
                         operation: ['registerUrl'],
                     },
                 },
+                description: 'Phone number to receive pull transaction notifications',
             },
             {
                 displayName: 'Callback URL',
@@ -764,6 +841,7 @@ export class Mpesa implements INodeType {
                         operation: ['query'],
                     },
                 },
+                description: 'Start date for the transaction query range',
             },
             {
                 displayName: 'End Date',
@@ -777,6 +855,7 @@ export class Mpesa implements INodeType {
                         operation: ['query'],
                     },
                 },
+                description: 'End date for the transaction query range',
             },
             {
                 displayName: 'Offset Value',
@@ -790,6 +869,7 @@ export class Mpesa implements INodeType {
                         operation: ['query'],
                     },
                 },
+                description: 'Number of records to skip for pagination',
             },
             // Account Balance Fields
             {
@@ -800,14 +880,17 @@ export class Mpesa implements INodeType {
                     {
                         name: 'Shortcode',
                         value: 4,
+                        description: 'Paybill or Business shortcode',
                     },
                     {
-                        name: 'MSISDN',
+                        name: 'Phone Number (MSISDN)',
                         value: 1,
+                        description: 'Mobile phone number',
                     },
                     {
                         name: 'Till Number',
                         value: 2,
+                        description: 'Buy Goods Till number',
                     },
                 ],
                 default: 4,
@@ -817,6 +900,7 @@ export class Mpesa implements INodeType {
                         operation: ['balance', 'transactionStatus'],
                     },
                 },
+                description: 'Type of identifier for the account',
             },
             // Transaction Status Fields
             {
@@ -963,6 +1047,7 @@ export class Mpesa implements INodeType {
                         const callbackUrl = (this.getNodeParameter('callbackUrl', i) as string).trim();
                         const accountReference = this.getNodeParameter('accountReference', i) as string;
                         const transactionDesc = this.getNodeParameter('transactionDesc', i) as string;
+                        const transactionType = this.getNodeParameter('transactionType', i) as string;
 
                         // Calculate Timestamp in EAT (UTC+3)
                         const now = new Date();
@@ -976,7 +1061,7 @@ export class Mpesa implements INodeType {
                             BusinessShortCode: businessShortCode,
                             Password: password,
                             Timestamp: timestamp,
-                            TransactionType: 'CustomerPayBillOnline',
+                            TransactionType: transactionType,
                             Amount: amount.toString(),
                             PartyA: phoneNumber,
                             PartyB: businessShortCode,
@@ -1024,13 +1109,14 @@ export class Mpesa implements INodeType {
                         const amount = this.getNodeParameter('amount', i) as number;
                         const msisdn = this.getNodeParameter('msisdn', i) as string;
                         const commandId = this.getNodeParameter('commandId', i) as string;
+                        const billRefNumber = this.getNodeParameter('billRefNumber', i, '') as string;
 
                         const body = {
                             ShortCode: shortCode,
                             CommandID: commandId,
                             Amount: amount.toString(),
                             Msisdn: msisdn,
-                            BillRefNumber: 'Simulate',
+                            BillRefNumber: billRefNumber || 'Test',
                         };
 
                         responseData = await mpesaApiRequest.call(this, 'POST', '/mpesa/c2b/v1/simulate', body);
@@ -1093,7 +1179,7 @@ export class Mpesa implements INodeType {
                             RecieverIdentifierType: receiverIdentifierType,
                         };
 
-                        responseData = await mpesaApiRequest.call(this, 'POST', '/mpesa/b2b/v1/paymentrequest', body);
+                        responseData = await mpesaApiRequest.call(this, 'POST', '/mpesa/b2b/v3/paymentrequest', body);
                     }
                 } else if (resource === 'identity') {
                     if (operation === 'checkAti') {

@@ -34,7 +34,9 @@ export class MpesaTrigger implements INodeType {
         defaults: {
             name: 'M-Pesa Trigger',
         },
+        // eslint-disable-next-line n8n-nodes-base/node-class-description-inputs-wrong-trigger-node
         inputs: [],
+        // eslint-disable-next-line n8n-nodes-base/node-class-description-outputs-wrong
         outputs: ['main'],
         webhooks: [
             {

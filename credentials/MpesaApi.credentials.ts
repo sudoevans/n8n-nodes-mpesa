@@ -2,7 +2,6 @@ import {
     ICredentialType,
     INodeProperties,
     ICredentialTestRequest,
-    IAuthenticateGeneric,
 } from 'n8n-workflow';
 
 export class MpesaApi implements ICredentialType {
@@ -25,6 +24,7 @@ export class MpesaApi implements ICredentialType {
                 },
             ],
             default: 'sandbox',
+            description: 'Select the M-Pesa environment to use',
         },
         {
             displayName: 'Consumer Key',
@@ -34,6 +34,8 @@ export class MpesaApi implements ICredentialType {
                 password: true,
             },
             default: '',
+            required: true,
+            description: 'The Consumer Key from your Safaricom Developer Portal app',
         },
         {
             displayName: 'Consumer Secret',
@@ -43,6 +45,8 @@ export class MpesaApi implements ICredentialType {
                 password: true,
             },
             default: '',
+            required: true,
+            description: 'The Consumer Secret from your Safaricom Developer Portal app',
         },
     ];
 

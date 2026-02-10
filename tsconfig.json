@@ -1,31 +1,22 @@
 {
-    "compilerOptions": {
-        "rootDirs": [
-            "nodes",
-            "credentials"
-        ],
-        "outDir": "dist",
-        "target": "ES2019",
-        "module": "commonjs",
-        "lib": [
-            "ES2019",
-            "DOM"
-        ],
-        "moduleResolution": "node",
-        "esModuleInterop": true,
-        "resolveJsonModule": true,
-        "removeComments": true,
-        "emitDecoratorMetadata": true,
-        "experimentalDecorators": true,
-        "noImplicitAny": false,
-        "skipLibCheck": true
-    },
-    "include": [
-        "nodes/**/*",
-        "credentials/**/*"
-    ],
-    "exclude": [
-        "node_modules",
-        "dist"
-    ]
+	"compilerOptions": {
+		"strict": true,
+		"module": "commonjs",
+		"moduleResolution": "node",
+		"target": "ES2021",
+		"lib": ["ES2021"],
+		"declaration": true,
+		"skipLibCheck": true,
+		"noImplicitAny": false,
+		"esModuleInterop": true,
+		"resolveJsonModule": true,
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"forceConsistentCasingInFileNames": true,
+		"removeComments": true,
+		"outDir": "./dist",
+		"rootDir": "."
+	},
+	"include": ["nodes/**/*.ts", "credentials/**/*.ts"],
+	"exclude": ["node_modules", "dist", "**/*.spec.ts", "**/*.test.ts"]
 }
