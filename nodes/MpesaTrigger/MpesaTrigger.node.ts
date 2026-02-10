@@ -31,10 +31,13 @@ export class MpesaTrigger implements INodeType {
         version: 1,
         subtitle: '={{$parameter["event"]}}',
         description: 'Handle M-Pesa Daraja API Callbacks',
+        documentationUrl: 'https://developer.safaricom.co.ke/apis',
         defaults: {
             name: 'M-Pesa Trigger',
         },
+        // eslint-disable-next-line n8n-nodes-base/node-class-description-inputs-wrong-trigger-node
         inputs: [],
+        // eslint-disable-next-line n8n-nodes-base/node-class-description-outputs-wrong
         outputs: ['main'],
         webhooks: [
             {
